@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace RadisCacheImplementation.Data
+﻿namespace RadisCacheImplementation.Data
 {
     public class EmployeeInfo
     {

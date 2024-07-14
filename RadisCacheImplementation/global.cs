@@ -1,0 +1,9 @@
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.Caching.Distributed;
+global using RadisCacheImplementation.Configurations;
+global using RadisCacheImplementation.Context;
+global using RadisCacheImplementation.Data;
+global using System.Text.Json;
+global using System.ComponentModel.DataAnnotations.Schema;
+global using System.ComponentModel.DataAnnotations;

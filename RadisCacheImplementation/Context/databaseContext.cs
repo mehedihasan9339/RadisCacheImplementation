@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RadisCacheImplementation.Data;
-using System.Collections.Generic;
-
-namespace RadisCacheImplementation.Context
+﻿namespace RadisCacheImplementation.Context
 {
     public class databaseContext:DbContext
     {

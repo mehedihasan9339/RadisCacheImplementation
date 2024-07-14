@@ -1,12 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Distributed;
-using RadisCacheImplementation.Context;
-using RadisCacheImplementation.Data;
-using System.Text.Json;
-
-namespace RadisCacheImplementation.Controllers
+﻿namespace RadisCacheImplementation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -47,7 +39,7 @@ namespace RadisCacheImplementation.Controllers
             // Try to retrieve employee data from cache
             var cachedEmployees = await _cache.GetStringAsync("Employee");
 
-            if (cachedEmployees != null)
+            if (!string.IsNullOrEmpty(cachedEmployees))
             {
                 // If employee data found in cache, return it
                 var employees = JsonSerializer.Deserialize<List<EmployeeInfo>>(cachedEmployees);
@@ -62,11 +54,8 @@ namespace RadisCacheImplementation.Controllers
                 var jsonEmployees = JsonSerializer.Serialize(employeesFromDb);
 
                 // Store employee data in cache with a sliding expiration of 5 minutes
-                var options = new DistributedCacheEntryOptions
-                {
-                    SlidingExpiration = TimeSpan.FromMinutes(5)
-                };
-                await _cache.SetStringAsync("Employee", jsonEmployees, options);
+                await _cache.SetStringAsync("Employee", jsonEmployees, CacheConfiguration.EmployeeCacheOptions);
+
 
                 return Ok(employeesFromDb);
             }
@@ -98,11 +87,7 @@ namespace RadisCacheImplementation.Controllers
                 var jsonEmployee = JsonSerializer.Serialize(employeeFromDb);
 
                 // Store employee data in cache with a sliding expiration of 5 minutes
-                var options = new DistributedCacheEntryOptions
-                {
-                    SlidingExpiration = TimeSpan.FromMinutes(5)
-                };
-                await _cache.SetStringAsync($"Employee_{employeeCode}", jsonEmployee, options);
+                await _cache.SetStringAsync($"Employee_{employeeCode}", jsonEmployee, CacheConfiguration.EmployeeCacheOptions);
 
                 return Ok(employeeFromDb);
             }
@@ -134,11 +119,7 @@ namespace RadisCacheImplementation.Controllers
                 var jsonEmployee = JsonSerializer.Serialize(employeeFromDb);
 
                 // Store employee data in cache with a sliding expiration of 5 minutes
-                var options = new DistributedCacheEntryOptions
-                {
-                    SlidingExpiration = TimeSpan.FromMinutes(5)
-                };
-                await _cache.SetStringAsync($"Employee_{id}", jsonEmployee, options);
+                await _cache.SetStringAsync($"Employee_{id}", jsonEmployee, CacheConfiguration.EmployeeCacheOptions);
 
                 return Ok(employeeFromDb);
             }
