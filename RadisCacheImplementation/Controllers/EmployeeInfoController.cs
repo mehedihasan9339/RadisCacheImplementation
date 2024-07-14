@@ -53,7 +53,7 @@
                 // Serialize the employee data to JSON
                 var jsonEmployees = JsonSerializer.Serialize(employeesFromDb);
 
-                // Store employee data in cache with a sliding expiration of 5 minutes
+                // Store employee data in cache with a sliding expiration of 1 minutes
                 await _cache.SetStringAsync("Employee", jsonEmployees, CacheConfiguration.EmployeeCacheOptions);
 
 
